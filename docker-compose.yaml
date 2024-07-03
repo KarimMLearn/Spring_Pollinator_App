@@ -1,17 +1,23 @@
 services:
-  spring-app-db:
+  postgres:
     image: postgres
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    container_name: spring-pgdb
 
   spring-app:
-    build: .
+    image: spring-jdk-image
     ports:
       - "8080:8080"
       - "5005:5005"
-    depends_on:
-      - spring-app-db
     environment:
-      - "JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
