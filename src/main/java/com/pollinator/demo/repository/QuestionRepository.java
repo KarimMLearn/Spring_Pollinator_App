@@ -1,8 +1,12 @@
 package com.pollinator.demo.repository;
 
 import com.pollinator.demo.model.Question;
-import org.springframework.data.repository.CrudRepository;
 
-public interface QuestionRepository extends CrudRepository<Question, Long> {
-    // Additional query methods can be defined here
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+@Repository
+public interface QuestionRepository extends JpaRepository<Question, Long> {
+    // Custom query methods can be defined here if needed
 }
