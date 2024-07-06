@@ -11,7 +11,8 @@ services:
 
   spring-app:
     image: spring-jdk-image
-    build: .
+    build:
+      context: .
     ports:
       - "8080:8080"
       - "5005:5005"
